@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-orbit-controls@1.2.0/dist/aframe-orbit-controls.min.js"></script>
+    <script src="https://unpkg.com/aframe-supercraft-loader@1.1.3/dist/aframe-supercraft-loader.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@5.0.0/dist/aframe-event-set-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-proxy-event-component/dist/aframe-proxy-event-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-play-sound-on-event@1.0.2/dist/aframe-play-sound-on-event.min.js"></script>
+    <script src="https://unpkg.com/aframe-transparent-video-shader@1.0.3/dist/aframe-transparent-video-shader.umd.js"></script>
+    <script>
+      AFRAME.registerComponent("videohandler", {
+        schema: {
+          src: { type: "string", default: "" },
+        },
+
+        init: function () {
+          let el = this.el;
+          let vid = document.querySelector(this.data.src);
+          el.addEventListener("click", function () {
+            vid.play();
+            vid.volume = 0.5;
+          });
+        },
+      });
+    </script>
+
+    <script>
+      AFRAME.registerComponent("videohandler2", {
+        schema: {
+          src: { type: "string", default: "" },
+        },
+
+        init: function () {
+          let el = this.el;
+          let vid = document.querySelector(this.data.src);
+          el.addEventListener("click", function () {
+            vid.pause();
+          });
+        },
+      });
+    </script>
+    
+
+    <script>
+      AFRAME.registerComponent("cam-switch1", {
+        init: function () {
+          var firstcameraEl = document.querySelector("#camera1");
+          this.el.addEventListener("click", function () {
+            firstcameraEl.setAttribute("camera", "active", true);
+          });
+        },
+      });
+    </script>
+
+    <script>
+      AFRAME.registerComponent("cam-switch2", {
+        init: function () {
+          var secondcameraEl = document.querySelector("#camera2");
+          this.el.addEventListener("click", function () {
+            secondcameraEl.setAttribute("camera", "active", true);
+          });
+        },
+      });
+    </script>
+
+  </head>
+  <body>
+    <a-scene vr-mode-ui="enabled: false">
+         
+      
+      <a-entity
+        id="camera1"
+        camera
+        look-controls
+        orbit-controls="target: 0 1.6 -0.5; minDistance: 0.5; maxDistance: 180; initialPosition: 0 5 15; enableRotate: false"
+      >
+        <a-entity cursor="rayOrigin: mouse"></a-entity>
+        
+                  
+        
+      </a-entity>
+      
+
+      <a-entity
+        id="camera2"
+        camera
+        look-controls="reverseMouseDrag: false"
+        position="0 10 0"
+        mixin="zoom"       
+        
+        
+
+      >
+        
+        <a-entity cursor="rayOrigin: mouse" raycaster="objects: .clickable"></a-entity>
+
+        
+
+        <a-entity
+          id="home"
+          geometry="primitive: sphere; radius: .2"
+          visible="false"
+          material="color:green; emissive: blue; emissiveIntensity:.5; src: #clouds; opacity:.5; side: double"
+          position="-4 2 -3"
+          animation="property:rotation; to:0 360 0; dur: 10000; loop: true; easing: linear"
+          event-set__click="_event: click; visible: false"
+          proxy-event__fade="event: click; to: #streamvid; as: fadeout2"
+          proxy-event__fade2="event: click; to: #button1; as: fadein"
+          proxy-event__fade3="event: click; to: #ear; as: viz"
+          proxy-event__click4="event: click; to: #hotspot1; as: hotvis2"
+          proxy-event__click5="event: click; to: #hotspot2; as: hotvis4"
+          proxy-event__click6="event: click; to: #hotspot3; as: hotvis6"
+          videohandler2="src: #stream"
+          cam-switch1
+          class="clickable"
+        ></a-entity>
+
+       <!--  <a-entity
+          id="ringer"
+          geometry="primitive: sphere; radius:.5"
+          visible="false"
+          position="0 0 2.5"
+          event-set__mouseenter=" _target: #ringy; visible: true"
+          event-set="_event: mouseenter; _target:#ringy2; visible: true"
+          event-set__mouseleave=" _target: #ringy2; visible: false"
+          event-set__6="_event: mouseenter; _target:#ringy3; visible: true"
+          event-set__5="_event: mouseleave; _target: #ringy3; visible: false"
+          proxy-event="event: mouseenter; to: #ringy; as: fadein"
+          proxy-event__2="event: mouseleave; to: #ringy; as: fadeout"
+          proxy-event__3="event: mouseleave; to: #ringy2; as: fadeout"
+          proxy-event__4="event: mouseenter; to: #ringy2; as: fadein"
+          proxy-event__5="event: mouseenter; to: #ringy3; as: fadein"
+        ></a-entity> -->
+         <a-entity
+          id="exit"
+          visible="false"
+          geometry="primitive: circle; radius: .4"
+          material="opacity:.7; src:#stars; metalness:.3; roughness: 0; sphericalEnvMap:#stars"
+          position="-4.2 -2 -3"
+          proxy-event="event: click; to: #slugy; as: shrink"
+          proxy-event__2="event: click; to: #exit; as: fadeout"
+          proxy-event__3="event: click; to: #video1; as: fadeout"
+          proxy-event__4="event: click; to: #boarder1; as: fadeout"
+          proxy-event__5="event: click; to: #exit; as: textfade10"
+          proxy-event__6="event: click; to: #textA; as: textfadeB"
+          mixin="fading"
+          videohandler2="src: #colors"
+          event-set="_event: click; _target: #textA; visible: false"
+          event-set__2="_event: click; _target: #button; visible: false"
+          event-set__3="_event: click; _target: #slugy; class: clickable"
+          event-set__4="_event: click; _target: #button; class: not-clickable"
+          class="clickable"      
+          text="align: center; anchor: center; width: 5; wrapCount: 30; color: white; value:x"
+          animation="property: components.text.material.uniforms.opacity.value; from: 0; to: 1; dur: 750; startEvents: textfade9"
+          animation__2="property: components.text.material.uniforms.opacity.value; from: 1; to: 0 dur: 750; startEvents: textfade10"
+
+>
+             </a-entity>
+        
+  
+   
+   
+            <a-entity
+          id="video1"
+          geometry="primitive: plane; width: 2; height: 1"
+          material="shader: flat; src:#colors"
+          visible="false"
+          scale="0 0 0"
+          position="0 0 -2"
+          mixin="fading"
+          animation="property:scale; to:2 2 2; dur: 2000; startEvents: fadein"
+          animation__2="property:scale; to:0 0 0; dur: 200; startEvents: fadeout"
+          event-set__1="_event: materialvideoended; _target: #button; visible: true"
+          event-set__2="_event: materialvideoended; _target: #button; class: clickable"
+          class="not-clickable"            
+                      >
+              
+              <a-entity
+                      geometry="primitive: plane; width: 2.3; height: 1.2"
+                       material="src:#bevel2; color:green; opacity:.5 transparent:true" 
+                       position="0 0 -.1"
+                       class="not-clickable"
+                       
+
+                      
+                        
+                        
+                        ></a-entity>
+                                    
+
+        <a-entity
+          id="button"
+          geometry="primitive: sphere; radius:.1"
+          material="color:green; opacity:0"
+          visible="false"
+          proxy-event__1="event: click; to: #textA; as: textfadeA"
+          event-set="_event: click; _target: #textA; visible: true"
+          position="-.5 .2 0"
+          animation="property: material.opacity; from: .2; to: 0; loop: true; dir: alternate; dur: 500; startEvents: mouseenter"
+          animation__2="property: material.opacity; to: 0; dur: 400; startEvents: mouseleave"
+          class="not-clickable"
+
+             > </a-entity>
+    
+              
+              
+              <a-entity
+          id="textA"
+          visible="false"
+          material="transparent:true"
+          position="0 -.3 .1"
+          text="align: center; width: 1.8; wrapCount: 35; color: yellow; value: You found the park! This place is called the Hoh Rainforest. It's one of the largest rainforests in the United States."
+          animation="property: components.text.material.uniforms.opacity.value; from: 0; to: 1; dur: 750; startEvents: textfadeA"
+          animation__2="property: components.text.material.uniforms.opacity.value; from: 1; to: 0; dur: 750; startEvents: textfadeB"
+          class="not-clickable"
+>
+         
+              
+              </a-entity>   
+              
+              
+        </a-entity>
+        
+            <a-entity
+          id="menu"
+          visible="false"
+          geometry="primitive: circle; radius: .4"
+          material="opacity:.7; src:#stars; metalness:.3; roughness: 0; sphericalEnvMap:#stars"
+          position="-4.2 -2 -3"
+          proxy-event="event: click; to: #slugy; as: shrink"
+          proxy-event__2="event: click; to: #exit; as: fadeout"
+          proxy-event__3="event: click; to: #video1; as: fadeout"
+          proxy-event__4="event: click; to: #boarder1; as: fadeout"
+          proxy-event__5="event: click; to: #x; as: textfade10"
+          proxy-event__6="event: click; to: #textA; as: textfadeB"
+          mixin="fading"
+          videohandler2="src: #colors"
+          event-set="_event: click; _target: #textA; visible: false"
+          event-set__2="_event: click; _target: #button; visible: false"
+          event-set__3="_event: click; _target: #ringer; class: clickable"
+          event-set__4="_event: click; _target: #button; class: not-clickable"
+          class="clickable"
+></a-entity>
+        
+       
+           </a-entity>
+
+
+      <a-assets>
+        <a-asset-item
+          id="earth"
+          src="https://cdn.glitch.global/57a2561b-bbb0-4ad1-85a3-ecb8c6f6011a/EarthClouds_1_12756.glb?v=1657414934299"
+          response-type="arraybuffer"
+          crossorigin="anonymous"
+        >
+        </a-asset-item>
+        <img
+          id="stars"
+          src="https://cdn.glitch.global/57a2561b-bbb0-4ad1-85a3-ecb8c6f6011a/Stellarium3.jpeg?v=1657417537065"
+          crossorigin="anonymous"
+        />
+        <img
+          id="clouds"
+          src="https://cdn.glitch.global/57a2561b-bbb0-4ad1-85a3-ecb8c6f6011a/2k_earth_clouds.jpg?v=1657443853342"
+          crossorigin="anonymous"
+        />
+        <img
+          id="bevel"
+          src="https://cdn.glitch.global/57a2561b-bbb0-4ad1-85a3-ecb8c6f6011a/square-rounded-512(1).png?v=1658310350460"
+          crossorigin="anonymous"
+        />
+          <img
+          id="bevel2"
+          src="https://cdn.glitch.global/769659af-e334-4469-8ae9-89981faea934/Screen%20Shot%202022-08-08%20at%2011.48.18%20PM.png?v=1660184134889"
+          crossorigin="anonymous"
+        />
+        <video
+          id="slug"
+          src="https://cdn.glitch.global/5272b45a-3c57-40ea-b716-d1f810ee77e5/ezgif.com-gif-maker(2).webm?v=1658537130670"
+          crossorigin="anonymous"
+          autoplay
+          loop="true"
+               
+        />
+        <video
+          id="slug2"
+          src="https://cdn.glitch.global/769659af-e334-4469-8ae9-89981faea934/ezgif.com-gif-maker(3).webm?v=1658956817195"
+          crossorigin="anonymous"
+          autoplay
+          loop="true"
+        />
+        <video
+          id="stream"
+          src="https://cdn.glitch.me/57a2561b-bbb0-4ad1-85a3-ecb8c6f6011a/Hoh_Forest_Stream.mp4?v=1657418916161"
+          crossorigin="anonymous"
+          loop="true"
+        />
+          <video
+          id="colors"
+          src="https://cdn.glitch.global/769659af-e334-4469-8ae9-89981faea934/slug3.1.mp4?v=1660185353459"
+          preload="auto"
+          crossorigin="anonymous"
+        />
+      
+        <sound
+          id="sound1"
+          src="https://cdn.glitch.global/57a2561b-bbb0-4ad1-85a3-ecb8c6f6011a/Tree.mp3?v=1658269628533"
+          crossorigin="anonymous"
+        ></sound>
+
+        <sound
+          id="sound2"
+          src="https://cdn.glitch.global/57a2561b-bbb0-4ad1-85a3-ecb8c6f6011a/moss.mp3?v=1658269630496"
+          crossorigin="anonymous"
+        ></sound>
+        <sound
+          id="sound3"
+          src="https://cdn.glitch.global/57a2561b-bbb0-4ad1-85a3-ecb8c6f6011a/Stream.mp3?v=1658269628351"
+          crossorigin="anonymous"
+        ></sound>
+            <a-mixin
+        id="fading"
+        animation__fadein="property: material.opacity; from: 0; to: 1; dur: 500; startEvents: fadein"
+        animation__fadeout="property: material.opacity; from: 1; to: 0; dur: 1000; startEvents: fadeout"
+      ></a-mixin>
+
+      <a-mixin
+        id="zoom"
+        animation="property: camera.zoom; from: 0; to: 1; dur: 5000; startEvents: camzoom"
+
+      ></a-mixin>
+        
+        
+
+      </a-assets>
+
+  
+      
+      
+
+      <a-sky id="sky" src="#stars"></a-sky>
+
+      <a-videosphere
+        id="streamvid"
+        src="#stream"
+        visible="false"
+        animation__fadein2="property: material.opacity; from: 0; to: 1; dur: 5000; startEvents: fadein2"
+        animation__fadeout2="property: material.opacity; from: 1; to: 0; dur: 500; startEvents: fadeout2"
+      ></a-videosphere>
+
+      <a-entity light="type: ambient; intensity: 3.5"></a-entity>
+      <a-entity
+        light="type: directional; intensity: 0.6"
+        position="-0.5 1 0"
+      ></a-entity>
+
+      <a-entity
+        id="ear"
+        gltf-model="#earth"
+        scale="0.015 0.015 0.015"
+        material="shader:flat"        
+        animation="property: visible; from: false; to: true; startEvents: viz"
+      ></a-entity>
+      
+
+      <a-entity
+        id="orbit2"
+        position="0 5 0"
+        animation="property: rotation; to: 0 -360 0; loop: true; dur: 400000; easing: linear"
+        class="not-clickable"
+      >
+      
+      
+        <a-entity
+          id="ringy"
+          visible="false"
+          geometry="primitive: ring; radiusInner: .8; radiusOuter: .81 "
+          position="4 0 0"
+          material="color: green; opacity: .7; transparent: true"
+          look-at="#camera2"
+          scale="1 1 1"
+          animation="property: scale; from: 1 1 1; to: 1.5 1.5 1.5; dur: 900; loop: true"
+          mixin="fading"
+          class="not-clickable"
+        ></a-entity>
+
+        </a-entity>
+      
+      
+      <a-entity
+        id="orbit"
+        position="0 5 0"
+        animation="property: rotation; to: 0 -360 0; loop: true; dur: 400000; easing: linear"
+        material="color: yellow"
+        class="not-clickable"
+        
+      >
+        
+
+        <a-entity
+          id="slugy"
+          geometry="primitive: plane; width: 2; height: 1"
+          position="4 0 0"
+          material="shader: transparent-video; src:#slug; side: double"
+          look-at="#camera2"
+          animation="property: position; to: 1.5 4.2 0; dur: 1000; startEvents: click"
+          animation__2="property: position; to: 4 0 0; dur:1000; startEvents: shrink"
+          event-set__click1="_event: click; _target: #exit; visible: true"
+          class="clickable"
+          event-set__1="_event:mouseenter;_target: #ringy; visible: true"
+          proxy-event="event: mouseenter; to: #ringy; as: fadein"
+          proxy-event__2="event: mouseleave; to: #ringy; as: fadeout"
+          proxy-event__1="event: click; to: #exit; as: fadein"
+          proxy-event__3="event: click; to: #video1; as: fadein"
+          event-set__click="_event: click; _target: #video1; visible: true"
+          proxy-event__4="event: click; to: #exit; as: textfade9"
+          videohandler="src: #colors" 
+          event-set__click2="_event: click; _target: #slugy; class: not-clickable"
+          >
+        
+          
+     
+             <!-- Deleted "ringer" entity on 8/21/22 at 7:27pm^^^^^^^^^^^^^^^^^-->
+
+          
+          
+          
+           
+          
+        
+        </a-entity>
+    
+      </a-entity>
+    
+     
+      <a-entity
+        id="button1"
+        geometry="primitive: sphere; radius: 0.15"
+        position="4.38308 5.43543 2.57836"
+        material="color: red"
+        animation="property: components.material.material.color; type: color; from: blue; to: red; loop: true; dur: 600; dir: alternate; pauseEvents: mouseenter; resumeEvents: mouseleave"
+        animation__mouseenter="property: components.material.material.color; type: color; to: green; dur: 0; startEvents: mouseenter"
+        animation__mouseenter2="property: scale; from: 1 1 1; to: 1.4 1.4 1.4; dur: 400; dir: alternate; loop: true; startEvents: mouseenter; pauseEvents: mouseleave"
+        animation__mousedown="property: components.material.material.color; type: color; to: orange; dur: 0; startEvents: mousedown"
+        animation__mouseup="property: components.material.material.color; type: color; to: green; dur: 200; startEvents: mouseup"
+        videohandler="src: #stream"
+        event-set__clicky="_event: click; _target: #streamvid; visible:true"
+        proxy-event__enter="event: click; to: #streamvid; as: fadein2"
+        proxy-event__click="event: click; to: #camera2; as: camzoom"
+        proxy-event__cam="event: click; to: #camera2; as: cam1"
+        event-set__clack="_event: click; _target: #ear; visible: false"
+        proxy-event__fade2="event: click; to: #button1; as: fadeout"
+        event-set__click2="_event: click; _target: #home; visible: true"
+        proxy-event__click3="event: click; to: #hotspot1; as: hotvis"
+        proxy-event__click4="event: click; to: #hotspot2; as: hotvis3"
+        proxy-event__click5="event: click; to: #hotspot3; as: hotvis5"
+        event-set__mouse="_event: mouseleave; scale:1 1 1"
+        mixin="fading"
+        cam-switch2
+        class="clickable"
+      ></a-entity>
+
+      <a-entity position="-1.7 7.5 2.7">
+        <a-entity
+          id="hotspot1"
+          visible="false"
+          geometry="primitive: sphere; radius: .09"
+          material="color: red"
+          animation="property: components.material.material.color; type: color; from: blue; to: red; loop: true; dur: 600; dir: alternate; resumeEvents: mouseleave"
+          animation__mouseenter="property: components.material.material.color; type: color; to: green; dur: 0; startEvents: mouseenter"
+          animation__mousedown="property: components.material.material.color; type: color; to: orange; dur: 0; startEvents: mousedown"
+          animation__mouseup="property: components.material.material.color; type: color; to: green; dur: 200; startEvents: mouseup"
+          animation__mouseenter2="property: scale; from: 1 1 1; to: 1.4 1.4 1.4; dur: 400; dir: alternate; loop: true; startEvents: mouseenter; pauseEvents: mouseleave"
+          animation__click="property: visible; from: false; to: true; delay: 4000; startEvents: hotvis"
+          animation__click2="property: visible; from: true; to: false; startEvents: hotvis2"
+          proxy-event__fade1="event: mouseenter; to: #text1; as: textfade3"
+          event-set__click1="_event: mouseenter; _target: #text1; visible: true"
+          event-set__click2="_event: mouseleave; _target: #text1; visible: false"
+          event-set__mouse="_event: mouseleave; scale:1 1 1"
+          sound="src: #sound3; volume: 10"
+          play-sound-on-event="mode: toggle-stop; event: click"
+          class="clickable"
+        ></a-entity>
+
+        <a-entity
+          id="text1"
+          visible="false"
+          geometry="primitive: plane; width: 4; height: 1.5"
+          material="color: red; src: #bevel; opacity: .5; emissive: yellow; emissiveIntensity:.7; transparent: true"
+          position="0 2 .3"
+          look-at="#camera2"
+          text="align: center; width: 4; wrapCount: 28; color: blue; value: This is a stream. Water from rivers, lakes, and underground flows through it. Most of this water ends up in the Pacific Ocean."
+          animation="property: components.text.material.uniforms.opacity.value; from: 0; to: 1; dur: 750; startEvents: textfade3"
+          animation__2="property: material.opacity; from: 0; to: .52; dur: 600; startEvents: textfade3"
+          class="not-clickable"
+        ></a-entity>
+      </a-entity>
+
+      <a-entity position="-1.7 9.5 -4">
+        <a-entity
+          id="hotspot2"
+          visible="false"
+          geometry="primitive: sphere; radius: .09"
+          material="color: red; transparent: true"
+          animation="property: components.material.material.color; type: color; from: blue; to: red; loop: true; dur: 600; dir: alternate; resumeEvents: mouseleave"
+          animation__mouseenter="property: components.material.material.color; type: color; to: green; dur: 0; startEvents: mouseenter"
+          animation__mouseenter2="property: scale; from: 1 1 1; to: 1.4 1.4 1.4; dur: 400; dir: alternate; loop: true; startEvents: mouseenter; pauseEvents: mouseleave"
+          animation__click="property: visible; from: false; to: true; delay: 4000; startEvents: hotvis3"
+          animation__click2="property: visible; from: true; to: false; startEvents: hotvis4"
+          animation__mousedown="property: components.material.material.color; type: color; to: orange; dur: 0; startEvents: mousedown"
+          animation__mouseup="property: components.material.material.color; type: color; to: green; dur: 200; startEvents: mouseup"
+          proxy-event__fade1="event: mouseenter; to: #text2; as: textfade1"
+          event-set__clicky1="_event: mouseenter; _target: #text2; visible: true"
+          event-set__clicky2="_event: mouseleave; _target: #text2; visible: false"
+          event-set__mouse="_event: mouseleave; scale:1 1 1"
+          sound="src: #sound2; volume: 10"
+          play-sound-on-event="mode: toggle-stop; event: click"
+          class="clickable"
+        ></a-entity>
+
+        <a-entity
+          id="text2"
+          visible="false"
+          geometry="primitive: plane; width: 4.2; height: 1.7"
+          material="color: red; src: #bevel; transparent: true; opacity: .5; emissive: yellow; emissiveIntensity:.7"
+          position="0 1.6 .3"
+          look-at="#camera2"
+          text="align: center; width: 4; wrapCount: 28; color: blue; value:This is a rock with moss growing on it. Moss likes shady, damp places: that is why there is so much here on the forest floor. But, there are kinds of moss can grow almost anywhere, even in the desert!"
+          animation="property: components.text.material.uniforms.opacity.value; from: 0; to: 1; dur: 750; startEvents: textfade1"
+          animation__2="property: material.opacity; from: 0; to: .52; dur: 600; startEvents: textfade1"
+          class="not-clickable"
+        ></a-entity>
+      </a-entity>
+
+      <a-entity position="5.3 15 -1.2">
+        <a-entity
+          id="hotspot3"
+          visible="false"
+          geometry="primitive: sphere; radius: .09"
+          material="color: red; transparent: true"
+          animation="property: components.material.material.color; type: color; from: blue; to: red; loop: true; dur: 600; dir: alternate; resumeEvents: mouseleave"
+          animation__mouseenter="property: components.material.material.color; type: color; from: blue; to: green; dur: 0; dir: reverse; startEvents: mouseenter, click"
+          animation__mouseenter2="property: scale; from: 1 1 1; to: 1.4 1.4 1.4; dur: 400; dir: alternate; loop: true; startEvents: mouseenter; pauseEvents: mouseleave"
+          animation__mousedown="property: components.material.material.color; type: color; to: orange; dur: 0; startEvents: mousedown"
+          animation__mouseup="property: components.material.material.color; type: color; to: green; dur: 200; startEvents: mouseup"
+          animation__click="property: visible; from: false; to: true; delay: 4000; startEvents: hotvis5"
+          animation__click2="property: visible; from: true; to: false; startEvents: hotvis6"
+          proxy-event__fade1="event: mouseenter; to: #text3; as: textfade2"
+          event-set__clicky1="_event: mouseenter; _target: #text3; visible: true"
+          event-set__clicky2="_event: mouseleave; _target: #text3; visible: false"
+          event-set__mouse="_event: mouseleave; scale:1 1 1"
+          sound="src: #sound1; volume: 10"
+          play-sound-on-event="mode: toggle-stop; event: click"
+          class="clickable"
+        >
+        </a-entity>
+
+        <a-entity
+          id="text3"
+          visible="false"
+          geometry="primitive: plane; width: 4.2; height: 2.8"
+          material="color: red; src: #bevel; transparent: true; emissive: yellow; emissiveIntensity:.7"
+          position="0 -2.8 .3"
+          look-at="#camera2"
+          text="align: center; width: 4; wrapCount: 20; color: blue; value: This is a Western Hemlock tree: the state tree of Washington. Its bark is thin and wrinkled. Native peoples used this bark for food and medicine."
+          animation="property: components.text.material.uniforms.opacity.value; from: 0; to: 1; dur: 750; startEvents: textfade2"
+          animation__2="property: material.opacity; from: 0; to: .52; dur: 600; startEvents: textfade2"
+          class="not-clickable"
+        ></a-entity>
+      </a-entity>
+  
+      
+      
+    </a-scene>
+  </body>
+</html>
