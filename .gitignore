@@ -11,8 +11,20 @@ assets/**/*.mp3
 assets/**/*.m4a
 assets/**/*.wav
 
-# Allow the 360 video to be tracked (via Git LFS)
-!assets/videos/Hoh_Forest_Stream.mp4
+# Track asset files in-repo (except the large stream video)
+!assets/models/*.glb
+!assets/models/*.gltf
+!assets/images/*.jpg
+!assets/images/*.jpeg
+!assets/images/*.png
+!assets/videos/*.mp4
+!assets/videos/*.webm
+!assets/audio/*.mp3
+!assets/audio/*.m4a
+!assets/audio/*.wav
+
+# Keep the large stream video out of the repo
+assets/videos/Hoh_Forest_Stream.mp4
 
 # Keep the directory structure and README
 !assets/README.md
