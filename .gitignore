@@ -11,6 +11,9 @@ assets/**/*.mp3
 assets/**/*.m4a
 assets/**/*.wav
 
+# Allow the 360 video to be tracked (via Git LFS)
+!assets/videos/Hoh_Forest_Stream.mp4
+
 # Keep the directory structure and README
 !assets/README.md
 !assets/**/README.md
