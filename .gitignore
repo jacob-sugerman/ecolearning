@@ -23,8 +23,6 @@ assets/**/*.wav
 !assets/audio/*.m4a
 !assets/audio/*.wav
 
-# Keep the large stream video out of the repo
-assets/videos/Hoh_Forest_Stream.mp4
 
 # Keep the directory structure and README
 !assets/README.md
