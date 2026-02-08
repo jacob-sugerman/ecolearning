@@ -1,0 +1,45 @@
+# Asset files (large binary files)
+# Users should obtain these separately using the recovery scripts
+assets/**/*.glb
+assets/**/*.gltf
+assets/**/*.jpg
+assets/**/*.jpeg
+assets/**/*.png
+assets/**/*.mp4
+assets/**/*.webm
+assets/**/*.mp3
+assets/**/*.m4a
+assets/**/*.wav
+
+# Keep the directory structure and README
+!assets/README.md
+!assets/**/README.md
+!assets/**/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+
+# Recovery results
+recovery_results.json
+
+# Backups
+*.backup
+*.bak
+
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Editor files
+.vscode/
+.idea/
+*.sublime-*
