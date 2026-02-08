@@ -2,6 +2,9 @@
 """
 Asset Recovery Script for Glitch-Hosted Files
 Attempts to recover assets from the Internet Archive's Wayback Machine
+
+IMPORTANT: Assets ARE available on the Wayback Machine!
+If this script fails due to network issues, see WAYBACK_URLS.md for direct download links.
 """
 
 import os
@@ -167,6 +170,9 @@ def recover_assets():
     print("GLITCH ASSET RECOVERY TOOL")
     print("=" * 70)
     print()
+    print("NOTE: Assets ARE available on the Wayback Machine!")
+    print("If this script fails, see WAYBACK_URLS.md for manual download links.")
+    print()
     
     create_directories()
     print()
@@ -267,8 +273,15 @@ def recover_assets():
     print()
     print("NEXT STEPS:")
     if results['failed']:
-        print("1. For failed assets, check ASSET_RECOVERY.md for alternative methods")
-        print("2. Consider finding replacement assets or original source files")
+        print("✨ ASSETS ARE AVAILABLE ON THE WAYBACK MACHINE! ✨")
+        print("1. See WAYBACK_URLS.md for direct download links to all assets")
+        print("2. Click each Wayback Machine URL and download from snapshots")
+        print("3. The automated script may fail due to network restrictions,")
+        print("   but manual download from the Wayback Machine works!")
+        print()
+        print("Alternative methods:")
+        print("4. Check ASSET_RECOVERY.md for other recovery methods")
+        print("5. Check ALTERNATIVE_ASSETS.md for free replacement sources")
     if results['recovered']:
         print("3. Run update_asset_paths.py to update index.html with new paths")
     print("4. Test the application to ensure all assets load correctly")

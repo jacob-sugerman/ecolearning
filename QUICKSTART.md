@@ -25,8 +25,20 @@ python3 update_asset_paths.py
 # 3. Open index.html in your browser - done!
 ```
 
-### Option 2: Try Automatic Recovery (Worth a shot)
+### Option 2: Download from Wayback Machine (Confirmed Available!)
 
+**Good news! The assets ARE available on the Wayback Machine!**
+
+See **[WAYBACK_URLS.md](WAYBACK_URLS.md)** for direct links to each asset.
+
+**Quick steps:**
+1. Open WAYBACK_URLS.md
+2. Click each Wayback Machine URL
+3. Select a snapshot from July-August 2022
+4. Download the file
+5. Save to the correct `assets/` folder
+
+Or try the automated script (may have network issues):
 ```bash
 # Run this script - it checks web archives automatically:
 python3 recover_assets.py

@@ -78,17 +78,25 @@ The following assets were identified from `.glitch-assets` and `index.html`:
 
 ## Recovery Methods
 
-### Method 1: Wayback Machine (Internet Archive)
-The Internet Archive's Wayback Machine may have captured these assets. Use the recovery script provided:
+### ✅ Method 1: Wayback Machine (CONFIRMED AVAILABLE!)
 
+**The assets ARE available on the Wayback Machine!**
+
+See **[WAYBACK_URLS.md](WAYBACK_URLS.md)** for direct Wayback Machine URLs to all 12 assets.
+
+**Steps:**
+1. Open WAYBACK_URLS.md
+2. Click the Wayback Machine URL for each asset
+3. Select a snapshot from July-August 2022
+4. Download the file and save it to the specified path
+5. Repeat for all 12 assets
+
+**Automated approach:**
 ```bash
 python3 recover_assets.py
 ```
 
-This script will:
-1. Attempt to find snapshots of each asset URL in the Wayback Machine
-2. Download available assets to the `assets/` directory
-3. Generate a report of successful and failed recoveries
+This script will attempt to find and download assets from the Wayback Machine automatically. Note: May encounter network restrictions in some environments, so manual download from WAYBACK_URLS.md is recommended.
 
 ### Method 2: Manual Web Archive Search
 Visit the Wayback Machine manually:

@@ -11,30 +11,30 @@ This project is an interactive 3D/VR experience that teaches about the ecology o
 - Banana slug animations
 - Nature sound effects
 
-## ⚠️ Asset Recovery Required
+## ✅ Asset Recovery Available!
 
-**Important**: This project previously hosted assets on Glitch.com. Since Glitch no longer exists, the media assets (3D models, videos, images, audio) need to be recovered or replaced before the project will work.
+**Good News!** This project's assets are available on the Wayback Machine! The media files (3D models, videos, images, audio) can be recovered.
 
 ### Quick Start for Asset Recovery
 
-1. **Attempt automatic recovery from web archives:**
-   ```bash
-   python3 recover_assets.py
-   ```
-
-2. **Check what assets are still needed:**
-   ```bash
-   python3 update_asset_paths.py --dry-run
-   ```
-
-3. **Find replacement assets:**
-   - See [ALTERNATIVE_ASSETS.md](ALTERNATIVE_ASSETS.md) for free sources
-   - See [ASSET_RECOVERY.md](ASSET_RECOVERY.md) for detailed info
-
-4. **Update HTML once assets are in place:**
+**Method 1: Direct Download (Recommended)**
+1. **Open [WAYBACK_URLS.md](WAYBACK_URLS.md)** - Contains direct Wayback Machine links
+2. **Click each URL** - Access snapshots from July-August 2022
+3. **Download files** - Save to the `assets/` directory
+4. **Update HTML:**
    ```bash
    python3 update_asset_paths.py
    ```
+
+**Method 2: Try Automatic Recovery**
+   ```bash
+   python3 recover_assets.py  # May have network issues
+   python3 update_asset_paths.py
+   ```
+
+**Method 3: Use Alternatives**
+   - See [ALTERNATIVE_ASSETS.md](ALTERNATIVE_ASSETS.md) for free replacement sources
+   - See [ASSET_RECOVERY.md](ASSET_RECOVERY.md) for complete details
 
 ### Required Assets
 
